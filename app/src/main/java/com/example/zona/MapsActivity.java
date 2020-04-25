@@ -84,13 +84,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                         public void run() {
                             mp.stop();
                         }
-                    }, 7500);
+                    }, 6000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                String message = "Alert!" + "\n" + "Distance between you and your neighbour is less than 3 metre. \n" ;
-                message += "DEVICE: " + deviceName + "\n" + "MAC: " + deviceHardwareAddress;
+                String message = "Alert!" + "\n" + "Distance between you and your neighbour is less than 3m. \n" ;
+                message += "DEVICE: " + deviceName + "\n" + "MAC: " + deviceHardwareAddress + "\nNumber of people: " + String.valueOf(deviceList.size());
                 Toast.makeText(context, message ,Toast.LENGTH_LONG).show();
 
 //                ArrayAdapter<String> items = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, deviceList);
@@ -125,8 +125,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
         handler.postDelayed(new Runnable(){
             public void run(){
                 //do something
-                if (!adapter.isDiscovering())
+                if (!adapter.isDiscovering()) {
+                    deviceList.clear();
                     adapter.startDiscovery();
+                }
                 handler.postDelayed(this, delay);
             }
         }, delay);
@@ -178,7 +180,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
         LatLng p5 = new LatLng (13.0405,80.2503);
         LatLng p6 = new LatLng (13.1344,80.2774);
         LatLng p7 = new LatLng (13.0126,80.1547);
-//        LatLng p8 = new LatLng (13.007, 80.255);
+        LatLng p8 = new LatLng (13.007, 80.255);
 
         this.hotspot.add(p1);
         this.hotspot.add(p2);
@@ -300,7 +302,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
         this.pushSafetyNotification();
         return false;
     }
-
 
     @Override
     protected void onDestroy() {
