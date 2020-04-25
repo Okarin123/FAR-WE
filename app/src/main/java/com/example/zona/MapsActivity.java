@@ -82,7 +82,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                     e.printStackTrace();
                 }
 
-                Toast.makeText(context, "DEVICE NAME: " + deviceName + "\n" + "MAC: " + deviceHardwareAddress, Toast.LENGTH_LONG).show();
+                String message = "Alert!" + "\n" + "Distance between you and your neighbour is less than 3 metre. \n" ;
+                message += "DEVICE: " + deviceName + "\n" + "MAC: " + deviceHardwareAddress;
+                Toast.makeText(context, message ,Toast.LENGTH_LONG).show();
 
 //                ArrayAdapter<String> items = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, deviceList);
 //                ListView listView = (ListView) findViewById(R.id.listView);
@@ -135,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
         curr.setLongitude(mMap.getMyLocation().getLongitude());
 
         double m = 1e9;
+        boolean unsafe = false;
 
         for (int i=0; i<this.hotspot.size(); i++) {
             Location spot = new Location("");
@@ -142,13 +145,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
             spot.setLatitude(this.hotspot.get(i).latitude);
 
             double distance = curr.distanceTo(spot);
-//            m = Math.min (distance, m);
+            m = Math.min (distance, m);
             if (distance < 2000) {
+                unsafe = true;
                 this.pushNotifications("HOTSPOT nearby!", "Do not forget to maintain social distancing!");
                 break;
             }
         }
-//        Toast.makeText(this, String.valueOf(m), Toast.LENGTH_SHORT).show();
+
+        String message = "SAFE! \nclosest hotspot distance: " + String.valueOf(m) + " m"; 
+        if (!unsafe) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
