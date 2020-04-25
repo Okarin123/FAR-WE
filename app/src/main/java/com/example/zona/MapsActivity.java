@@ -76,8 +76,15 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                 try {
                     Uri alarmSound =
                             RingtoneManager. getDefaultUri (RingtoneManager. TYPE_ALARM );
-                    MediaPlayer mp = MediaPlayer. create (getApplicationContext(), alarmSound);
+                    final MediaPlayer mp = MediaPlayer. create (getApplicationContext(), alarmSound);
                     mp.start();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mp.stop();
+                        }
+                    }, 7500);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
