@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.icu.text.CaseMap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -69,8 +71,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                 String deviceHardwareAddress = device.getAddress(); // MAC address
 
                 deviceList.add (deviceName + ": " + deviceHardwareAddress);
-                Toast.makeText(context, "Distancing less than threshold!", Toast.LENGTH_LONG).show();
-
                 //Add notifications
 
                 try {
@@ -81,6 +81,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                Toast.makeText(context, "DEVICE NAME: " + deviceName + "\n" + "MAC: " + deviceHardwareAddress, Toast.LENGTH_LONG).show();
 
 //                ArrayAdapter<String> items = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, deviceList);
 //                ListView listView = (ListView) findViewById(R.id.listView);
@@ -123,6 +125,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
 
     public void pushNotifications (String title, String message) {
         //Add notifications
+        Toast.makeText(this, title+"\n"+message, Toast.LENGTH_LONG).show();
     }
 
     public void pushSafetyNotification (){
