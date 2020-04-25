@@ -704,7 +704,6 @@ id default_activity_button
 id disableHome
 id edit_query
 id end
-id enterloc
 id expand_activities_button
 id expanded_menu
 id fill
@@ -761,7 +760,6 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id searchbutt
 id select_dialog_listview
 id shortcut
 id showCustom

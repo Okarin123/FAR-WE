@@ -21,97 +21,103 @@
 17    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 17-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:11:5-80
 17-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:11:22-78
-18
-19    <!-- Include required permissions for Google Maps API to run. -->
-20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-20-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:5-79
-20-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:22-76
-21    <uses-permission android:name="android.permission.INTERNET" />
-21-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:24:5-67
-21-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:24:22-64
-22
-23    <uses-feature
-23-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
-24        android:glEsVersion="0x00020000"
-24-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:27:9-41
-25        android:required="true" />
-25-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:28:9-32
-26
-27    <application
-27-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:14:5-43:19
-28        android:allowBackup="true"
-28-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:15:9-35
-29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-29-->[androidx.core:core:1.0.1] /home/amogh/.gradle/caches/transforms-2/files-2.1/aa782ce88e4a65071c9b22f6f1fd262a/core-1.0.1/AndroidManifest.xml:22:18-86
-30        android:debuggable="true"
-31        android:extractNativeLibs="false"
-32        android:icon="@mipmap/ic_launcher"
-32-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:16:9-43
-33        android:label="@string/app_name"
-33-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:17:9-41
-34        android:roundIcon="@mipmap/ic_launcher_round"
-34-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:18:9-54
-35        android:supportsRtl="true"
-35-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:19:9-35
-36        android:testOnly="true"
-37        android:theme="@style/AppTheme" >
-37-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:20:9-40
-38
-39        <!--
-40             The API key for Google Maps-based APIs is defined as a string resource.
-41             (See the file "res/values/google_maps_api.xml").
-42             Note that the API key is linked to the encryption key used to sign the APK.
-43             You need a different API key for each encryption key, including the release key that is used to
-44             sign the APK for publishing.
-45             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-46        -->
-47        <meta-data
-47-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:30:9-32:55
-48            android:name="com.google.android.geo.API_KEY"
-48-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:31:13-58
-49            android:value="@string/google_maps_key" />
-49-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:32:13-52
-50
-51        <activity
-51-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:34:9-42:20
-52            android:name="com.example.zona.MapsActivity"
-52-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:35:13-41
-53            android:label="@string/title_activity_maps" >
-53-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:36:13-56
-54            <intent-filter>
-54-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:37:13-41:29
-55                <action android:name="android.intent.action.MAIN" />
-55-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:38:17-69
-55-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:38:25-66
-56
-57                <category android:name="android.intent.category.LAUNCHER" />
-57-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:40:17-77
-57-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:40:27-74
-58            </intent-filter>
-59        </activity>
-60        <!-- Needs to be explicitly declared on P+ -->
-61        <uses-library
-61-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:33:9-35:40
-62            android:name="org.apache.http.legacy"
-62-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:34:13-50
-63            android:required="false" />
-63-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:35:13-37
-64
-65        <activity
-65-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
-66            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-66-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
-67            android:exported="false"
-67-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
-68            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-68-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
-69
-70        <meta-data
-70-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
-71            android:name="com.google.android.gms.version"
-71-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
-72            android:value="@integer/google_play_services_version" />
-72-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
-73    </application>
-74
-75</manifest>
+18    <uses-permission android:name="android.permission.BLUETOOTH" />
+18-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:12:5-68
+18-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:12:22-65
+19    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+19-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:13:5-74
+19-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:13:22-71
+20
+21    <!-- Include required permissions for Google Maps API to run. -->
+22    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+22-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:5-79
+22-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:22-76
+23    <uses-permission android:name="android.permission.INTERNET" />
+23-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:24:5-67
+23-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:24:22-64
+24
+25    <uses-feature
+25-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
+26        android:glEsVersion="0x00020000"
+26-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:27:9-41
+27        android:required="true" />
+27-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:28:9-32
+28
+29    <application
+29-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:15:5-44:19
+30        android:allowBackup="true"
+30-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:16:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.0.1] /home/amogh/.gradle/caches/transforms-2/files-2.1/aa782ce88e4a65071c9b22f6f1fd262a/core-1.0.1/AndroidManifest.xml:22:18-86
+32        android:debuggable="true"
+33        android:extractNativeLibs="false"
+34        android:icon="@mipmap/ic_launcher"
+34-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:17:9-43
+35        android:label="@string/app_name"
+35-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:18:9-41
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:19:9-54
+37        android:supportsRtl="true"
+37-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:20:9-35
+38        android:testOnly="true"
+39        android:theme="@style/AppTheme" >
+39-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:21:9-40
+40
+41        <!--
+42             The API key for Google Maps-based APIs is defined as a string resource.
+43             (See the file "res/values/google_maps_api.xml").
+44             Note that the API key is linked to the encryption key used to sign the APK.
+45             You need a different API key for each encryption key, including the release key that is used to
+46             sign the APK for publishing.
+47             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+48        -->
+49        <meta-data
+49-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:31:9-33:55
+50            android:name="com.google.android.geo.API_KEY"
+50-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:32:13-58
+51            android:value="@string/google_maps_key" />
+51-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:33:13-52
+52
+53        <activity
+53-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:35:9-43:20
+54            android:name="com.example.zona.MapsActivity"
+54-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:36:13-41
+55            android:label="@string/title_activity_maps" >
+55-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:37:13-56
+56            <intent-filter>
+56-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:38:13-42:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:39:17-69
+57-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:39:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:41:17-77
+59-->/home/amogh/Desktop/zona/app/src/main/AndroidManifest.xml:41:27-74
+60            </intent-filter>
+61        </activity>
+62        <!-- Needs to be explicitly declared on P+ -->
+63        <uses-library
+63-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:33:9-35:40
+64            android:name="org.apache.http.legacy"
+64-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:34:13-50
+65            android:required="false" />
+65-->[com.google.android.gms:play-services-maps:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/a9ed8aaed483b33b1021fe1efd2e7709/jetified-play-services-maps-17.0.0/AndroidManifest.xml:35:13-37
+66
+67        <activity
+67-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+68            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+68-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+69            android:exported="false"
+69-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+70            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+70-->[com.google.android.gms:play-services-base:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/e2c213d4dfcecf7d0961805c3c2450f7/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+71
+72        <meta-data
+72-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+73            android:name="com.google.android.gms.version"
+73-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+74            android:value="@integer/google_play_services_version" />
+74-->[com.google.android.gms:play-services-basement:17.0.0] /home/amogh/.gradle/caches/transforms-2/files-2.1/752a983649401b2c06f8f162da3a35f7/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+75    </application>
+76
+77</manifest>

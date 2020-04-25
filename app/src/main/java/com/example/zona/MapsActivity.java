@@ -1,10 +1,30 @@
 package com.example.zona;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Notification;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,13 +39,55 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,
+        GoogleMap.OnMyLocationClickListener, LocationListener,
         OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private static final int PERMISSION_CODE = 123;
+    private static final int PERMISSION_CODE = 101;
     private boolean access = false;
+    private ArrayList<LatLng> hotspot = new ArrayList<LatLng>();
+
+    //Bluetooth variables
+    private static final int REQUEST_ENABLE_BT = 123;
+    private ArrayList<String> deviceList = new ArrayList<String>();
+    private ListView listView;
+    BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+
+    // Create a BroadcastReceiver for ACTION_FOUND.
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                // Discovery has found a device. Get the BluetoothDevice
+                // object and its info from the Intent.
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String deviceName = device.getName();
+                String deviceHardwareAddress = device.getAddress(); // MAC address
+
+                deviceList.add (deviceName + ": " + deviceHardwareAddress);
+                Toast.makeText(context, "Distancing less than threshold!", Toast.LENGTH_LONG).show();
+
+                //Add notifications
+
+                try {
+                    Uri alarmSound =
+                            RingtoneManager. getDefaultUri (RingtoneManager. TYPE_ALARM );
+                    MediaPlayer mp = MediaPlayer. create (getApplicationContext(), alarmSound);
+                    mp.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                ArrayAdapter<String> items = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, deviceList);
+//                ListView listView = (ListView) findViewById(R.id.listView);
+//                listView.setAdapter(items);
+            }
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -45,14 +107,90 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
         }
     }
 
+    private void discover() {
+        final Handler handler = new Handler();
+        final int delay = 10000; //10s
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                //do something
+                if (!adapter.isDiscovering())
+                    adapter.startDiscovery();
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+    public void pushNotifications (String title, String message) {
+        //Add notifications
+    }
+
+    public void pushSafetyNotification (){
+
+        Location curr = new Location("");
+        curr.setLatitude(mMap.getMyLocation().getLatitude());
+        curr.setLongitude(mMap.getMyLocation().getLongitude());
+
+        double m = 1e9;
+
+        for (int i=0; i<this.hotspot.size(); i++) {
+            Location spot = new Location("");
+            spot.setLongitude(this.hotspot.get(i).longitude);
+            spot.setLatitude(this.hotspot.get(i).latitude);
+
+            double distance = curr.distanceTo(spot);
+//            m = Math.min (distance, m);
+            if (distance < 2000) {
+                this.pushNotifications("HOTSPOT nearby!", "Do not forget to maintain social distancing!");
+                break;
+            }
+        }
+//        Toast.makeText(this, String.valueOf(m), Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        LatLng p1 = new LatLng (13.1199,80.2342);
+        LatLng p2 = new LatLng (13.0850,80.2101);
+        LatLng p3 = new LatLng (13.1137,80.2954);
+        LatLng p4 = new LatLng (13.315,80.1331);
+        LatLng p5 = new LatLng (13.0405,80.2503);
+        LatLng p6 = new LatLng (13.1344,80.2774);
+        LatLng p7 = new LatLng (13.0126,80.1547);
+//        LatLng p8 = new LatLng (13.007, 80.255);
+
+        this.hotspot.add(p1);
+        this.hotspot.add(p2);
+        this.hotspot.add(p3);
+        this.hotspot.add(p4);
+        this.hotspot.add(p5);
+        this.hotspot.add(p6);
+        this.hotspot.add(p7);
+//        this.hotspot.add(p8);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (!adapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
+        Intent discoverableIntent =
+                new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        startActivity(discoverableIntent);
+
+        // Register for broadcasts when a device is discovered.
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(receiver, filter);
+
+        this.discover();
     }
 
     /**
@@ -68,23 +206,67 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+
         this.runTimePermission(); //Get location access
-
-//       mMap.addMarker(new MarkerOptions().position(sydney).title("High risk point"));
-
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
 
-        LatLng startPos = new LatLng(13, 80.255);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPos, 15));
+        LatLng startPos = new LatLng(13.0825, 80.2755);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPos, 10));
 
-        /*
-        1. source destination
-        2. mark all points
-        3. Dijkstra's
-        4. Testing center
-         */
+        LatLng p1 = new LatLng (13.1199,80.2342);
+        LatLng p2 = new LatLng (13.0850,80.2101);
+        LatLng p3 = new LatLng (13.1137,80.2954);
+        LatLng p4 = new LatLng (13.315,80.1331);
+        LatLng p5 = new LatLng (13.0405,80.2503);
+        LatLng p6 = new LatLng (13.1344,80.2774);
+        LatLng p7 = new LatLng (13.0126,80.1547);
+        LatLng p8 = new LatLng (13.007, 80.255);
+
+        googleMap.addMarker(new MarkerOptions().position(p1)
+                .title("hot-spot 1"));
+        googleMap.addMarker(new MarkerOptions().position(p2)
+                .title("hot-spot 2"));
+        googleMap.addMarker(new MarkerOptions().position(p3)
+                .title("hot-spot 3"));
+        googleMap.addMarker(new MarkerOptions().position(p4)
+                .title("hot-spot 4"));
+        googleMap.addMarker(new MarkerOptions().position(p5)
+                .title("hot-spot 5"));
+        googleMap.addMarker(new MarkerOptions().position(p6)
+                .title("hot-spot 6"));
+        googleMap.addMarker(new MarkerOptions().position(p7)
+                .title("hot-spot 7"));
+//        googleMap.addMarker(new MarkerOptions().position(p8)
+//                .title("hot-spot 8"));
+
+    }
+
+    @Override
+    public void onStatusChanged (String provider,
+                                 int status,
+                                 Bundle extras) {
+        Toast.makeText(this, "Change in location services", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        this.runTimePermission();
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Toast.makeText(this, "Location services enabled!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged (Location location) {
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        Toast.makeText(this, String.valueOf(lat) + ", " + String.valueOf(lng), Toast.LENGTH_SHORT).show();
+
+        this.pushSafetyNotification();
     }
 
     @Override
@@ -97,9 +279,15 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
+        this.pushSafetyNotification();
         return false;
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Don't forget to unregister the ACTION_FOUND receiver.
+        unregisterReceiver(receiver);
+    }
 }
