@@ -153,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMyLoca
             }
         }
 
-        String message = "SAFE! \nclosest hotspot distance: " + String.valueOf(m) + " m"; 
+        String message = "SAFE! \nclosest hotspot distance: " + String.valueOf(m) + " m";
         if (!unsafe) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
